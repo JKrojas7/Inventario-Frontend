@@ -13,10 +13,19 @@ export class ProductoService {
 
   constructor(private clienteHttp: HttpClient) { }
 
-  obtenerProductosLista():Observable<Producto[]>{
+  obtenerProductosLista(): Observable<Producto[]> {
     return this.clienteHttp.get<Producto[]>(this.urlBackend);
   }
-  agregarProductos(producto: Producto): Observable<Object>{
+  agregarProductos(producto: Producto): Observable<Object> {
     return this.clienteHttp.post(this.urlBackend, producto);
+  }
+  obtenerProductosporId(id: number) {
+    return this.clienteHttp.get<Producto>(`${this.urlBackend}/${id}`);
+  }
+  editarProducto(id: number, producto: Producto): Observable<Object> {
+    return this.clienteHttp.put(`${this.urlBackend}/${id}`, producto);
+  }
+  eliminarProducto(id: number) {
+    return this.clienteHttp.delete(`${this.urlBackend}/${id}`);
   }
 }
